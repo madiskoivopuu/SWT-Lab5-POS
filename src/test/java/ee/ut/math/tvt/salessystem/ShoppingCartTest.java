@@ -22,6 +22,8 @@ public class ShoppingCartTest {
 	    InMemorySalesSystemDAO inMemorySalesSystemDAO0 = new InMemorySalesSystemDAO();
 	    ShoppingCart shoppingCart0 = new ShoppingCart(inMemorySalesSystemDAO0);
 	    shoppingCart0.cancelCurrentPurchase();
+
+		assertTrue(shoppingCart0.getAll().isEmpty());
 	}
 
 	@Test(timeout = 4000)
@@ -29,14 +31,18 @@ public class ShoppingCartTest {
 	    InMemorySalesSystemDAO inMemorySalesSystemDAO0 = new InMemorySalesSystemDAO();
 	    ShoppingCart shoppingCart0 = new ShoppingCart(inMemorySalesSystemDAO0);
 	    shoppingCart0.submitCurrentPurchase();
+
+		assertTrue(shoppingCart0.getAll().isEmpty());
 	}
 
 	@Test(timeout = 4000)
 	public void testAddItem() throws Throwable {
 	    InMemorySalesSystemDAO inMemorySalesSystemDAO0 = new InMemorySalesSystemDAO();
 	    ShoppingCart shoppingCart0 = new ShoppingCart(inMemorySalesSystemDAO0);
-	    shoppingCart0.addItem((SoldItem) null);
+	    shoppingCart0.addItem(new SoldItem(inMemorySalesSystemDAO0.findStockItem(1), 2));
 	    shoppingCart0.submitCurrentPurchase();
+
+		assertTrue(shoppingCart0.getAll().isEmpty());
 	}
 
 }
